@@ -9,7 +9,7 @@ end
 function encodeURITable(table)
    local reply = ""
    for k, v in pairs(table) do
-      if string.len(reply) > 0 then reply = reply + "&" end
+      if string.len(reply) > 0 then reply = reply .. "&" end
       reply = reply .. encodeURIComponent(k) .. "=" .. encodeURIComponent(v)
    end
    return reply

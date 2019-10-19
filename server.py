@@ -8,6 +8,10 @@ PORT = 8080
 Handler = http.server.SimpleHTTPRequestHandler
 
 
+class MyServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+
 class MyHandler(http.server.BaseHTTPRequestHandler):
 
     # Handler for the GET requests
@@ -35,6 +39,6 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         return
 
 
-with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
+with MyServer(("", PORT), MyHandler) as httpd:
     print("serving at port", PORT)
     httpd.serve_forever()

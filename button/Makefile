@@ -21,4 +21,6 @@ wifi:
 	nodemcu-tool run wifi.kittens.lua
 
 flash:
-	esptool.py --port /dev/cu.usbserial-1410 write_flash 0x00 ../../thirdparty/esp8266/nodemcu-1.5.4.1-final-13-modules-2019-10-07-23-17-09-integer.bin
+	esptool.py --port /dev/cu.usbserial-1410 write_flash 0x00 ../../thirdparty/esp8266/nodemcu-1.5.4.1-final-18-modules-2019-10-19-18-12-12-float.bin
+
+# nodemcu-1.5.4.1-final-13-modules-2019-10-07-23-17-09-integer.bin
