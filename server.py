@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
-import os
 import http.server
+import os
+import pathlib
 import socketserver
+import urllib.request
 
 PORT = 8080
 Handler = http.server.SimpleHTTPRequestHandler
+
+IFTTT_KEY = pathlib.Path(".ifttt.key").read_text().strip()
 
 
 class MyServer(socketserver.TCPServer):
@@ -13,8 +17,6 @@ class MyServer(socketserver.TCPServer):
 
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
-
-    # Handler for the GET requests
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
@@ -24,10 +26,12 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         return
 
     def do_POST(self):
-        content_length = int(self.headers["Content-Length"])
-        body = self.rfile.read(content_length)
+        if "Content-Length" in self.headers:
+            content_length = int(self.headers["Content-Length"])
+            body = self.rfile.read(content_length)
 
-        print("Received:\n%s" % body)
+            print("Received:\n%s" % body)
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
@@ -35,9 +39,18 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         # Send the html message
         self.wfile.write(b"Hello I got your post !\n")
         # self.wfile.write(b"STAY AWAKE\n")
-        os.system("say -v Karen you have mail")
+
+        # DO.. The.. Thing!
+
+        # os.system("say -v Karen you have mail")
         # https://www.thesoundarchive.com/play-wav-files.asp?sound=email/youGotmail.wav
         # os.system("afplay '%s'" % os.path.expanduser("~/Downloads/youGotmail.wav"))
+
+        ifft_url = "https://maker.ifttt.com/trigger/mail/with/key/{}".format(IFTTT_KEY)
+
+        req = urllib.request.Request(ifft_url)
+        urllib.request.urlopen(req)
+
         return
 
 
