@@ -34,8 +34,10 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         # Send the html message
         self.wfile.write(b"Hello I got your post !\n")
-        self.wfile.write(b"STAY AWAKE\n")
+        # self.wfile.write(b"STAY AWAKE\n")
         os.system("say -v Karen you have mail")
+        # https://www.thesoundarchive.com/play-wav-files.asp?sound=email/youGotmail.wav
+        # os.system("afplay '%s'" % os.path.expanduser("~/Downloads/youGotmail.wav"))
         return
 
 
