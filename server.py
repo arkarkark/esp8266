@@ -42,14 +42,14 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         # DO.. The.. Thing!
 
+        os.system("say -v Karen beep")
         # os.system("say -v Karen you have mail")
         # https://www.thesoundarchive.com/play-wav-files.asp?sound=email/youGotmail.wav
         # os.system("afplay '%s'" % os.path.expanduser("~/Downloads/youGotmail.wav"))
 
-        ifft_url = "https://maker.ifttt.com/trigger/mail/with/key/{}".format(IFTTT_KEY)
-
-        req = urllib.request.Request(ifft_url)
-        urllib.request.urlopen(req)
+        # ifttt_url = "https://maker.ifttt.com/trigger/mail/with/key/{}".format(IFTTT_KEY)
+        # req = urllib.request.Request(ifttt_url)
+        # urllib.request.urlopen(req)
 
         return
 

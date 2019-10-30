@@ -1,13 +1,20 @@
-LUAS = $(shell ls -1 *.lua)
-CHANGED_LUAS = $(LUAS:%.lua=.changed/%.lua)
+FILES = $(shell ls -1 *.lua *.json)
+CHANGED_FILES = $(FILES:%=.changed/%)
 
 dev: upload terminal
 
-upload: $(CHANGED_LUAS)
+upload: deferred.lua $(CHANGED_FILES)
 
 .changed/%.lua: %.lua
+	nodemcu-tool upload -m $<
+	touch $@
+
+.changed/%.json: %.json
 	nodemcu-tool upload $<
 	touch $@
+
+deferred.lua:
+	curl -o $@ https://raw.githubusercontent.com/zserge/lua-promises/master/deferred.lua
 
 clean:
 	rm -fv .changed/*
@@ -21,6 +28,6 @@ wifi:
 	nodemcu-tool run wifi.kittens.lua
 
 flash:
-	esptool.py --port /dev/cu.usbserial-1410 write_flash 0x00 ../../thirdparty/esp8266/nodemcu-1.5.4.1-final-18-modules-2019-10-19-18-12-12-float.bin
+	esptool.py --port $$(jq -r .port .nodemcutool) write_flash 0x00 ../../thirdparty/esp8266/latest.int.bin
 
 # nodemcu-1.5.4.1-final-13-modules-2019-10-07-23-17-09-integer.bin

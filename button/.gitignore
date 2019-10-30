@@ -1,2 +1,4 @@
 wifi.*.lua
 .changed
+config.json
+deferred.lua
