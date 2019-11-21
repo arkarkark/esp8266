@@ -1,6 +1,6 @@
 -- luacheck: globals tmr wifi
 
-print("Connect!")
+print("Connecting to SSID: " .. wifi.sta.getconfig(true).ssid)
 
 local cnt = 0
 

@@ -31,7 +31,7 @@ function M.run(config)
 
     data = encode(data)
 
-    local method = string.lower(config.method) or "post"
+    local method = string.lower(config.method or "post")
 
     print("http." .. method .. ": " .. config.url .. " with: " .. content_type .. "\n" .. data)
 

@@ -6,6 +6,6 @@ gpio.write(4, gpio.HIGH)
 
 print("Starting ark's SmartButton")
 
-if  gpio.read(3) == 1 then
+if gpio.read(3) == 1 then
    dofile("connect.lua")
 end

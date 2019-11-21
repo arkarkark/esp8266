@@ -6,7 +6,7 @@ import pathlib
 import socketserver
 import urllib.request
 
-PORT = 8080
+PORT = 1988
 Handler = http.server.SimpleHTTPRequestHandler
 
 IFTTT_KEY = pathlib.Path(".ifttt.key").read_text().strip()
