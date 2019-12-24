@@ -7,7 +7,7 @@ ws2812.init()
 ZLed = {}
 
 ZLed.pin = 4
-ZLed.strandLength = 30
+ZLed.strandLength = 30 * 4
 ZLed.buffer = ws2812.newBuffer(ZLed.strandLength, 3);
 ZLed.t = tmr.create()
 
@@ -172,6 +172,6 @@ function ZLed.indicateDataDisconnectErr()
 end
 
 -- ZLed.pulse(0, 0, 255)
-ZLed.chase(0, 255, 0)
+-- ZLed.chase(0, 255, 0)
 
 -- return ZLed

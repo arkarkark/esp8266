@@ -1,5 +1,5 @@
 {
-    "baudrate": "9600",
+    "baudrate": "115200",
     "port": "/dev/tty.usbserial-1410",
     "minify": false,
     "compile": false,

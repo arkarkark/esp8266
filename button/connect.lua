@@ -8,7 +8,7 @@ local function timer()
    if wifi.sta.getip() == nil then
       cnt = cnt + 1
       print("(" .. cnt .. ") Waiting for IP...")
-      if cnt > 9 then
+      if cnt > 19 then
 	 tmr.stop(1)
 	 print("Giving up")
 	 dofile("bye.lua")
