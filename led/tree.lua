@@ -1,4 +1,6 @@
--- luacheck: globals ws2812 hsvToRgb
+-- luacheck: globals ws2812 hsvToRgb tmr
+ws2812.init()
+
 require('color')
 
 local RGB = {}
@@ -63,7 +65,8 @@ local Tree = {}
 function Tree:new()
     local strip_length = 15
     local strip_count = 8
-    local buffer = ws2812.newBuffer(strip_length * strip_count, 3)
+    local star_length = 16
+    local buffer = ws2812.newBuffer(strip_length * strip_count + star_length, 3)
     local strips = {
 	Strip:new(buffer, 1, strip_length, true), -- 1
 	Strip:new(buffer, 91, strip_length, true), -- 7
@@ -74,7 +77,9 @@ function Tree:new()
 	Strip:new(buffer, 61, strip_length, true),  -- 5
 	Strip:new(buffer, 46, strip_length, false),  -- 4
     }
-    local newObj = {strips = strips, buffer = buffer }
+    local star = Strip:new(buffer, strip_length * strip_count + 1, star_length)
+
+    local newObj = {strips = strips, star = star, buffer = buffer }
     self.__index = self
     return setmetatable(newObj, self)
 end
@@ -85,13 +90,41 @@ end
 
 function Tree:all(rgb)
     rgb = rgb or BLACK
+
+    if type(rgb[1]) == 'nil' then
+	rgb = {rgb}
+    end
+
     for i = 1, #self.strips do
-	print("s:" .. i)
-	self.strips[i]:all(RAINBOW[i])
+	print("s:" .. i .. " index:" .. i % #rgb + 1)
+	self.strips[i]:all(rgb[i % #rgb + 1]) -- RAINBOW[i])
     end
 end
 
 
-local t = Tree:new()
-t:all(GREEN)
-t:update()
+local PATTERNS = {
+    GREEN, RAINBOW
+}
+local pattern_index = 1
+
+
+
+
+
+local tree = Tree:new()
+tree.star:all(YELLOW)
+
+local function next_pattern()
+    print("next_pattern:" .. pattern_index , " num patterns:".. #PATTERNS)
+    tree:all(PATTERNS[pattern_index])
+    tree:update()
+    pattern_index = pattern_index % #PATTERNS + 1
+    print("pattern_index is now" .. pattern_index)
+end
+
+next_pattern()
+
+
+local timer = tmr.create()
+timer:register(3000, tmr.ALARM_AUTO, next_pattern)
+timer:start()
