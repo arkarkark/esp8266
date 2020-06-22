@@ -1,35 +1,42 @@
--- luacheck: globals file cjson
+-- luacheck: globals cjson file tmr wifi
 
-print("RUN!")
+local M = {}
 
-local deferred = require('deferred')
+local promise = require('lua-promise')
 
--- Load config
+local config = require('config').config
 
--- one day we can replace this with file.getcontents
-local function getcontents(name)
-    if file.open(name) then
-	local contents = file.read()
-	file.close()
-	return contents
+M.actionIndex = 1
+
+function M.run_action(action)
+    return require("action-" .. action.type).run(action.config)
+end
+
+local function do_next_action()
+    if M.actionIndex <= #config.actions then
+	promise = M.run_action(config.actions[M.actionIndex])
+    elseif M.actionIndex - 1 == #config.actions then
+	promise = M.run_action({type = "end"})
+    else
+	return false
+    end
+    M.actionIndex = M.actionIndex + 1
+    return promise
+end
+
+function M.run()
+    print("RUN!")
+    local reply = do_next_action()
+    if type(reply) == "boolean" and reply == false then
+	print("action returned false so stopping")
+	return
+    end
+    if type(reply) == "table" and type(reply.next) == "function" then
+	reply:next(M.run, M.run)
+    else
+	M.run()
     end
 end
 
-local config = cjson.decode(getcontents("config.json"))
 
--- do all the things
-local promise = deferred.new()
-promise:resolve()
-
-for _, config_action in pairs(config.actions) do
-    local next = require("action-" .. config_action.type).run(config_action.config)
-
-    promise:next(function() return next end)
-    promise = next
-end
-
-local function bye()
-    dofile("bye.lua")
-end
-
-promise:next(bye, bye)
+return M

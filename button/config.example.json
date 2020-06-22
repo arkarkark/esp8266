@@ -1,0 +1,27 @@
+{
+  "actions": [
+    {
+      "config": {
+        "password": "YOUR_PASSWORD",
+        "ssid": "YOUR_WIFI_NAME"
+      },
+      "type": "wifion"
+    },
+    {
+      "config": {
+        "url": "http://10.1.10.12:8080/"
+      },
+      "type": "ping"
+    },
+    {
+      "config": {
+        "data": {
+          "value3": "Thing Happened!"
+        },
+        "key": "YOUR IFTTT KEY from https://ifttt.com/maker_webhooks",
+        "name": "alert"
+      },
+      "type": "ifttt"
+    }
+  ]
+}

@@ -19,12 +19,24 @@ e.g.
     },
     {
       "config": {
+        "data": {
+          "value3": "Thing Happened!"
+        },
         "key": "YOUR IFTTT KEY from https://ifttt.com/maker_webhooks",
-        "name": "mail"
+        "name": "alert"
       },
       "type": "ifttt"
     }
-  ]
+  ],
+  "timing": {
+    "delay": 420,
+    "for": 20,
+    "repeat": 30
+  },
+	"wifi": {
+    "password": "YOUR_PASSWORD",
+    "ssid": "YOUR_WIFI_NAME"
+  }
 }
 ```
 

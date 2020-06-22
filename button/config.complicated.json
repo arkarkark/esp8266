@@ -1,0 +1,81 @@
+{
+  "actions": [
+    {
+      "config": {
+        "minutes": 5,
+        "wifi": {
+          "password": "YOUR_PASSWORD",
+          "ssid": "YOUR_WIFI_NAME"
+        }
+      },
+      "type": "pause"
+    },
+    {
+      "config": {
+        "data": {
+          "value3": "You left the window open!"
+        },
+        "key": "YOUR IFTTT KEY from https://ifttt.com/maker_webhooks",
+        "name": "alert"
+      },
+      "name": "alert",
+      "type": "ifttt"
+    },
+    {
+      "config": {
+        "config": {
+          "minutes": 0,
+          "seconds": 30
+        },
+        "type": "pause"
+      },
+      "name": "30",
+      "type": "replay"
+    },
+    {
+      "config": {
+        "config": {
+          "data": {
+            "value3": "Reminder about that window!"
+          }
+        },
+        "type": "ifttt"
+      },
+      "type": "replay"
+    },
+    {
+      "config": {
+        "name": "30"
+      },
+      "type": "replay"
+    },
+    {
+      "config": {
+        "config": {
+          "data": {
+            "value3": "another window Reminder!"
+          }
+        },
+        "type": "ifttt"
+      },
+      "type": "replay"
+    },
+    {
+      "config": {
+        "name": "30"
+      },
+      "type": "replay"
+    },
+    {
+      "config": {
+        "config": {
+          "data": {
+            "value3": "FINAL window Reminder!"
+          }
+        },
+        "type": "ifttt"
+      },
+      "type": "replay"
+    }
+  ]
+}

@@ -3,4 +3,5 @@ wifi.*.lua
 .changed
 config.json
 deferred.lua
+lua-promise.lua
 .nodemcutool

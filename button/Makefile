@@ -10,7 +10,7 @@ FIRMWARE=../../thirdparty/esp8266/latest.int.bin
 
 dev: upload terminal
 
-upload: deferred.lua $(CHANGED_FILES)
+upload: lua-promise.lua $(CHANGED_FILES)
 
 .changed/%.lua: %.lua
 	nodemcu-tool upload -m $<
@@ -20,8 +20,8 @@ upload: deferred.lua $(CHANGED_FILES)
 	nodemcu-tool upload $<
 	touch $@
 
-deferred.lua:
-	curl -o $@ https://raw.githubusercontent.com/zserge/lua-promises/master/deferred.lua
+lua-promise.lua:
+	curl -o $@ https://raw.githubusercontent.com/hjmmc/lua-promise/master/lua-promise.lua
 
 clean:
 	rm -fv .changed/*
@@ -30,9 +30,8 @@ clean:
 terminal:
 	rlwrap -a 'password:' -t dumb nodemcu-tool terminal
 
-wifi:
-	cd ../wifi; make
-
+# wifi:
+#	cd ../wifi; make refresh
 
 flash: do_flash terminal
 

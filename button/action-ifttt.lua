@@ -15,16 +15,18 @@ local M = {}
 
 -- config.url
 function M.run(config)
-    print("action-ifttt.run")
+    print("action-ifttt.run(" .. cjson.encode(config) .. ")")
     local data = {
 	value1=wifi.sta.getmac(),
 	value2=adc.readvdd33()
     }
     for k,v in pairs(config.data or {}) do
+	print("data[" .. k .. "]=" .. v)
 	data[k] = v
     end
+
     return ping.run({
-	    url="https://maker.ifttt.com/trigger/" .. config.name .. "/with/key/" .. config.key,
+	    url="http://maker.ifttt.com/trigger/" .. config.name .. "/with/key/" .. config.key,
 	    encoding= "json",
 	    data= data,
 	    method="POST"

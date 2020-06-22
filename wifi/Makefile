@@ -7,6 +7,8 @@ upload: .changed $(CHANGED_FILES)
 clean:
 	rm .changed/*
 
+refresh: clean upload
+
 .changed/%.lua: %.lua
 	nodemcu-tool upload -m $<
 	touch $@
