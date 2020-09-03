@@ -2,47 +2,14 @@
 
 Based on [IFTTT Smart Button](https://www.hackster.io/noelportugal/ifttt-smart-button-e11841).
 
-This started out simple but now it's more complicated, sorry.
-
 It's controlled by a `config.json` file that has one or more items in an actions array.
-
-e.g.
-
-```
-{
-  "actions": [
-    {
-      "config": {
-        "url": "http://10.1.10.12:8080/"
-      },
-      "type": "ping"
-    },
-    {
-      "config": {
-        "data": {
-          "value3": "Thing Happened!"
-        },
-        "key": "YOUR IFTTT KEY from https://ifttt.com/maker_webhooks",
-        "name": "alert"
-      },
-      "type": "ifttt"
-    }
-  ],
-  "timing": {
-    "delay": 420,
-    "for": 20,
-    "repeat": 30
-  },
-	"wifi": {
-    "password": "YOUR_PASSWORD",
-    "ssid": "YOUR_WIFI_NAME"
-  }
-}
-```
+see [config.example.json](config.example.json) for an example
 
 Each action has a `type` which will determine which `action_*.lua` is run. It also has a `config` which are the options for that action and documented at the top of each action file.
 
-The device needs to be set up with wifi one time. Edit and then run `wifi.lua` to make this happen.
+API keys and passwords are stored in a file called `secrets.json`. This allows me to check in my config files without exposing secrets.
+
+An action can add more actions to be executed once it exits by calling `require("run").add(action_name, action_config)`. See examples in [action-nagging.lua](action-nagging.lua).
 
 The Makefile has some magic which you might like.
 

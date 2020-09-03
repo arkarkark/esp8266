@@ -5,3 +5,7 @@ config.json
 deferred.lua
 lua-promise.lua
 .nodemcutool
+secrets.json
+lolin
+lora
+pcb

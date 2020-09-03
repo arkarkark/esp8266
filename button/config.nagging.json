@@ -1,0 +1,23 @@
+{
+  "actions": [
+    {
+      "config": {
+        "delay": {
+          "seconds": 30
+        },
+        "initial_delay": {
+          "seconds": 270
+        },
+        "messages": [
+          "Tutu!",
+          "Tutu Reminder!",
+          "Tutu another Reminder!",
+          "Tutu FINAL Reminder!"
+        ],
+        "sound": "magic",
+        "title": "Laundry Room"
+      },
+      "type": "nagging"
+    }
+  ]
+}

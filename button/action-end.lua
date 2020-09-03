@@ -9,7 +9,9 @@ function M.run(config)
     print("action-end.run(" .. cjson.encode(config) .. ")")
     wifi.setmode(wifi.NULLMODE)
     gpio.write(4, gpio.LOW)
-    node.dsleep(0)
+    if config.sleep then
+        node.dsleep(0)
+    end
 end
 
 return M
