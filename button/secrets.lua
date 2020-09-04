@@ -1,4 +1,4 @@
--- luacheck: globals cjson file
-local M = cjson.decode(require("getcontents")("secrets.json") or "{}")
+-- luacheck: globals cjson
+local M = cjson.decode(require("getcontents")("secrets.json"))
 
 return M

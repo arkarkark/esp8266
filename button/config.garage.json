@@ -5,12 +5,17 @@
     },
     {
       "config": {
-        "data": {
-          "value3": "Garage door"
-        },
-        "name": "alert"
+        "message": "Garage door opened",
+        "sound": "bike",
+        "title": "Garage"
       },
-      "type": "ifttt"
+      "type": "pushover"
+    },
+    {
+      "config": {
+        "name": "Garage"
+      },
+      "type": "battery"
     }
   ]
 }

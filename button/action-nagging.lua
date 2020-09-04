@@ -19,6 +19,9 @@ function M.run(config)
         run.add("pause", config.delay)
         run.add("wifion")
         run.add("pushover", data)
+	if i == 1 then
+	    run.add("battery", {name = config.title})
+	end
         run.add("wifioff")
     end
     run.add("end", {sleep = true})
